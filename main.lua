@@ -139,8 +139,6 @@ Esp_Monsters_button:Callback(function(Value)
     for _, Monster in ipairs(Monsters) do
       if not Monster:FindFirstChild("RaelHubIcon") and not Monster:FindFirstChild("RaelHubDestaque") then
          RaelHubFunction.CreateEspDistance(Monster, Color3.fromRGB(255, 102, 102), Monster.Name, true)
-         
-        Monster:FindFirstChild("RaelHubIcon").StudsOffset = Vector3.new(0, -5, 0)
       end
     end
   else
