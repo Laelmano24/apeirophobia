@@ -9,8 +9,8 @@ Window:AddMinimizeButton({
   Corner = { CornerRadius = UDim.new(0, 6) }
 })
 local Main = Window:MakeTab({"Main", "home"})
-local Player = Window:MakeTab({Jogador.name, "user"})
-local Esp = Window:MakeTab({Mostrar.name, "eye"})
+local Player = Window:MakeTab({"Player", "user"})
+local Esp = Window:MakeTab({"Esp", "eye"})
 local Credits = Window:MakeTab({"Credits", "star"})
 
 Main:AddSection("Example section ")
@@ -24,6 +24,41 @@ Main:AddButton({
   end
 })
 
+local PlayerId = ""
+
+Player:AddSection({"Teleport to players"})
+
+local TeleportePlayers = Player:AddDropdown({
+  Name = "Players",
+  Description = "",
+  Options = {},
+  Default = "",
+  Flag = "Teleporters players",
+  Callback = function(Value)
+    PlayerId = Value
+  end
+})
+
+function UpdatePlayers()
+  local playerNames = {}
+  for _, player in ipairs(game.Players:GetPlayers()) do
+    table.insert(playerNames, player.Name)
+  end
+  TeleportePlayers:Set(playerNames)
+end
+
+UpdatePlayers()
+
+game.Players.PlayerAdded:Connect(UpdatePlayers)
+game.Players.PlayerRemoving:Connect(UpdatePlayers)
+
+Player:AddButton({"Teleport player", function()
+  local targetPlayerName = PlayerId
+  local targetPlayer = game.Players:FindFirstChild(targetPlayerName)
+  if targetPlayer and targetPlayer.Character and targetPlayer.Character:FindFirstChild("HumanoidRootPart") then
+    game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = targetPlayer.Character.HumanoidRootPart.CFrame
+  end
+end})
 
 local JogadorSpeedValue = 25
 local JogadorSpeedRunService
@@ -33,8 +68,8 @@ Player:AddSection({"Player speed"})
 local PlayerSpeed = Player:AddSlider({
   Name = "Velocidade",
   Min = 14,
-  Max = 25,
-  Default = 100
+  Max = 100,
+  Default = 16
 })
 
 PlayerSpeed:Callback(function(Value)
