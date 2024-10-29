@@ -9,8 +9,7 @@ Window:AddMinimizeButton({
   Corner = { CornerRadius = UDim.new(0, 6) }
 })
 local Main = Window:MakeTab({"Main", "home"})
-local Visuals = Window:MakeTab({"Visuals", "eye"})
-local Chapter1 = Window:MakeTab({"Chapter 1", "eye"})
+local Visuals = Window:MakeTab({"Visuals", "eye"}
 local Credits = Window:MakeTab({"Credits", "star"})
 
 Main:AddSection("Main Section")
