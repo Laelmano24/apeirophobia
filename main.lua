@@ -32,6 +32,26 @@ Main:AddButton({"Instant Proximity Prompt", function()
   end)
 end})
 
+local noclipEnabled = false
+
+local Noclip = Main:AddToggle({
+  Name = "Noclip",
+  Default = false,
+  Callback = function(Value)
+  noclipEnabled = Value 
+  end
+})
+
+game:GetService('RunService').Stepped:Connect(function()
+    if noclipEnabled then
+        for _, part in pairs(player.Character:GetDescendants()) do
+            if part:IsA('BasePart') and part.CanCollide then
+                part.CanCollide = false
+            end
+        end
+    end
+end)
+
 local PlayerId = ""
 
 Player:AddSection({"Teleport to players"})
